@@ -1,0 +1,2686 @@
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dalian Ocean University</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+:root {
+  --ocean-blue: #005A9C;
+  --light-blue: #E6F0FA;
+  --dark-blue: #003D66;
+  --white: #fff;
+  --gray: #f5f5f5;
+}
+body {
+  background: var(--gray);
+  color: #333;
+}
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* 顶部校名区域：单行居中、不换行 */
+.logo-top {
+  background: var(--ocean-blue);
+  color: var(--white);
+  padding: 20px 0;
+  text-align: center;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.school-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+.school-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* 导航栏 */
+.navbar {
+  background: var(--ocean-blue);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 0;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 22px;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* 缩小版搜索栏 */
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+.search-bar input {
+  padding: 4px 8px;
+  width: 130px;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  border-radius: 4px 0 0 4px;
+}
+.search-bar button {
+  padding: 4px 10px;
+  border: none;
+  background: var(--dark-blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: 0 4px 4px 0;
+}
+.search-bar button:hover {
+  background: #002b4d;
+}
+
+/* 主轮播组件 */
+.main-carousel {
+  padding: 40px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e8eef5 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 装饰性背景元素 */
+.main-carousel::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 90, 156, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.main-carousel::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 90, 156, 0.03) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 40px rgba(0, 90, 156, 0.12),
+    0 4px 12px rgba(0, 90, 156, 0.08);
+  border: 1px solid rgba(0, 90, 156, 0.1);
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+/* 内层阴影效果 */
+.carousel-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a365d;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: contrast(1.02) saturate(1.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.carousel-slide:hover .carousel-image {
+  transform: scale(1.02);
+  filter: contrast(1.05) saturate(1.1);
+}
+
+.carousel-image.loading {
+  opacity: 0.5;
+}
+
+.carousel-image.error {
+  content: '';
+  background: #f5f5f5 url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2"%3E%3Crect x="3" y="3" width="18" height="18" rx="2" ry="2"/%3E%3Ccircle cx="8.5" cy="8.5" r="1.5"/%3E%3Cpolyline points="21 15 16 10 5 21"/%3E%3C/svg%3E') center no-repeat;
+  background-size: 48px;
+}
+
+/* 箭头按钮 */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 90, 156, 0.9);
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 15px rgba(0, 90, 156, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.carousel-container:hover .carousel-arrow {
+  opacity: 1;
+  visibility: visible;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0, 90, 156, 1);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 
+    0 6px 25px rgba(0, 90, 156, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-prev-arrow {
+  left: 24px;
+}
+
+.carousel-next-arrow {
+  right: 24px;
+}
+
+.arrow-icon {
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* 指示器 */
+.carousel-indicators {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 10;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.indicator-dot::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
+}
+
+.indicator-dot.active {
+  background: #fff;
+  box-shadow: 
+    0 0 0 2px rgba(0, 90, 156, 0.5),
+    0 2px 8px rgba(0, 90, 156, 0.3);
+  transform: scale(1.2);
+}
+
+.indicator-dot.active::before {
+  background: rgba(0, 90, 156, 0.2);
+  transform: scale(1.5);
+}
+
+/* 加载状态 */
+.carousel-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 24px 36px;
+  border-radius: 12px;
+  z-index: 20;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0e0e0;
+  border-top-color: var(--ocean-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-carousel {
+    padding: 20px 0;
+  }
+  
+  .carousel-container {
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+  }
+  
+  .carousel-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+  
+  .carousel-prev-arrow {
+    left: 12px;
+  }
+  
+  .carousel-next-arrow {
+    right: 12px;
+  }
+  
+  .indicator-dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .carousel-indicators {
+    gap: 10px;
+    bottom: 16px;
+    padding: 8px 16px;
+  }
+}
+
+/* NOTICE板块 */
+.notice-section {
+  padding: 24px 0;
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-bottom: 1px solid #ffd54f;
+}
+
+.notice-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.notice-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 110px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 3px 12px rgba(245, 124, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.notice-label::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.notice-icon {
+  font-size: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.notice-content {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.notice-text-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notice-text {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.7;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notice-text:hover {
+  color: #f57c00;
+}
+
+.notice-date {
+  color: #f57c00;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+.notice-description {
+  color: #444;
+  font-size: 16px;
+}
+
+.notice-more {
+  color: #f57c00;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s;
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
+  letter-spacing: 0.5px;
+}
+
+.notice-more:hover {
+  color: #b71c1c;
+  text-decoration: underline;
+}
+
+/* 轮播板块 */
+.carousel-section {
+  padding: 40px 0;
+  background: #f8f9fa;
+}
+
+.news-wrapper {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.news-left {
+  flex: 2;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-right {
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e8eef5;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin: 0 0 25px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.news-right .carousel-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  position: relative;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.news-right .carousel-title::after {
+  content: '';
+  width: 45px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ocean-blue), var(--dark-blue));
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 2px;
+}
+
+.news-right .carousel-title::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--ocean-blue);
+  border-radius: 50%;
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50%) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.carousel-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--ocean-blue);
+  border-radius: 2px;
+}
+
+/* 新闻列表 */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.news-item {
+  padding: 16px 18px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e8eef5;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.news-item:hover {
+  border-color: var(--ocean-blue);
+  box-shadow: 0 2px 8px rgba(0, 90, 156, 0.1);
+}
+
+.news-date {
+  display: inline-block;
+  font-size: 13px;
+  color: #6b7c93;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.news-content {
+  font-size: 15px;
+  color: #2c3e50;
+  line-height: 1.65;
+  font-weight: 400;
+  display: block;
+}
+
+.news-item:hover .news-content {
+  color: var(--ocean-blue);
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+  .notice-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .notice-label {
+    min-width: auto;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .notice-content {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .notice-text {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .news-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .news-left, .news-right {
+    width: 100%;
+  }
+  
+  .news-right {
+    margin-top: 20px;
+  }
+  
+  .news-item {
+    flex: none;
+  }
+}
+
+/* News轮播 - 使用与主轮播相同的结构 */
+.news-carousel-section {
+  width: 100%;
+}
+
+.news-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 40px rgba(0, 90, 156, 0.12),
+    0 4px 12px rgba(0, 90, 156, 0.08);
+}
+
+.news-carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.news-carousel-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  position: relative;
+}
+
+.news-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: contrast(1.05) saturate(1.08) brightness(1.02);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.news-carousel-slide:hover img {
+  transform: scale(1.03);
+  filter: contrast(1.08) saturate(1.12) brightness(1.03);
+}
+
+.news-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 90, 156, 0.9);
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 15px rgba(0, 90, 156, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.news-carousel-wrapper:hover .news-carousel-arrow {
+  opacity: 1;
+  visibility: visible;
+}
+
+.news-carousel-arrow:hover {
+  background: rgba(0, 90, 156, 1);
+  transform: translateY(-50%) scale(1.15);
+}
+
+.news-carousel-arrow:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.news-carousel-prev {
+  left: 24px;
+}
+
+.news-carousel-next {
+  right: 24px;
+}
+
+.news-carousel-indicators {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 10;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.news-indicator-dot {
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.news-indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
+}
+
+.news-indicator-dot.active {
+  background: #fff;
+  box-shadow: 
+    0 0 0 2px rgba(0, 90, 156, 0.5),
+    0 2px 8px rgba(0, 90, 156, 0.3);
+  transform: scale(1.2);
+}
+
+.carousel-intro {
+  background: linear-gradient(135deg, var(--light-blue) 0%, rgba(0, 90, 156, 0.08) 100%);
+  padding: 32px 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 90, 156, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 90, 156, 0.06);
+}
+
+.carousel-intro .intro-text {
+  font-family: 'Arial', 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  color: var(--dark-blue);
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-intro .intro-text em {
+  font-style: italic;
+  color: var(--ocean-blue);
+  font-weight: 600;
+}
+
+.hero-text{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  text-align:center;
+  text-shadow:0 2px 5px #00000080;
+}
+
+/* 快捷入口 */
+.quick-links{background:#fff;padding:40px 0;text-align:center;}
+.quick-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
+.quick-col{width:220px;}
+.quick-col h3{color:var(--ocean-blue);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--light-blue);}
+.quick-items{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+
+/* 数据板块 */
+.numbers{
+  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--ocean-blue) 50%, var(--light-blue) 100%);
+  padding: 50px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.numbers::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.numbers::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.numbers .container {
+  position: relative;
+  z-index: 1;
+}
+
+.numbers h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.numbers h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  border-radius: 2px;
+}
+
+.data-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:18px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.data-item{
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 28px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.data-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.num{
+  font-size: 48px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: 'Arial', 'Helvetica Neue', sans-serif;
+  letter-spacing: -2px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.data-item p {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* 视频板块 */
+.video-section {
+  padding: 50px 20px;
+  background: #fafafa;
+}
+
+.video-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-section h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--dark-blue);
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #000;
+}
+
+.university-video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+/* 体育板块 */
+.sports-section {
+  padding: 40px 0;
+  background: linear-gradient(135deg, #1a365d 0%, #2d4a7c 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.sports-header {
+  max-width: 1200px;
+  margin: 0 auto 24px auto;
+  padding: 0 20px;
+}
+
+.sports-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+}
+
+.sports-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+  border-radius: 2px;
+}
+
+.sports-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sports-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.sports-carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.sports-slide {
+  min-width: 100%;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sports-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.sports-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--ocean-blue);
+  z-index: 20;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sports-arrow:hover {
+  background: var(--ocean-blue);
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.sports-arrow-left {
+  left: 35px;
+}
+
+.sports-arrow-right {
+  right: 35px;
+}
+
+.sports-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  text-align: center;
+}
+
+.sports-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sports-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  opacity: 0.95;
+  letter-spacing: 2px;
+}
+
+/* 新闻区域 */
+.news-section{background:linear-gradient(135deg, #f8fafc 0%, #eef4f8 100%);padding:40px 0;}
+.news-container{display:flex;gap:35px;flex-wrap:wrap;}
+.news-left,.news-right{flex:1;min-width:280px;}
+.news-header{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--ocean-blue);padding-bottom:12px;margin-bottom:20px;position:relative;}
+.news-header::after{content:'';position:absolute;bottom:-3px;left:0;width:60px;height:3px;background:var(--dark-blue);}
+.news-header h2{color:var(--dark-blue);font-size:28px;font-weight:700;letter-spacing:1px;}
+.more-news{color:var(--ocean-blue);text-decoration:none;font-weight:600;font-size:15px;transition:all 0.3s ease;}
+.more-news:hover{color:var(--dark-blue);text-decoration:underline;}
+.news-list{list-style:none;margin:0;padding:0;}
+.news-list li{padding:14px 18px;border-bottom:1px solid rgba(0, 90, 156, 0.1);position:relative;background:linear-gradient(90deg, rgba(0, 90, 156, 0.02) 0%, transparent 100%);transition:all 0.3s ease;}
+.news-list li:hover{background:linear-gradient(90deg, rgba(0, 90, 156, 0.08) 0%, rgba(0, 90, 156, 0.02) 100%);transform:translateX(5px);}
+.news-list li::before{content:"›";color:var(--ocean-blue);position:absolute;left:8px;font-weight:700;font-size:18px;transition:color 0.3s ease;}
+.news-list li:hover::before{color:var(--dark-blue);}
+.news-categories{list-style:none;margin:0;padding:0;}
+.news-categories li{padding:12px 15px;border-bottom:1px solid rgba(0, 90, 156, 0.08);transition:all 0.3s ease;}
+.news-categories li:hover{background:rgba(0, 90, 156, 0.05);padding-left:20px;}
+.news-categories a{color:#333;text-decoration:none;font-weight:500;transition:color 0.3s ease;}
+.news-categories li:hover a{color:var(--ocean-blue);}
+
+/* RESEARCH图片展示板块 - 单张轮播 */
+.research-section {
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--ocean-blue) 50%, var(--light-blue) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.research-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.research-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.research-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.research-section h2 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 35px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  padding-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.research-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  border-radius: 2px;
+}
+
+.research-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 90, 156, 0.4), 0 4px 15px rgba(0, 90, 156, 0.2);
+}
+
+.research-carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.research-carousel-slide {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1a365d 0%, #0d2137 100%);
+}
+
+.research-image-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+
+.research-image-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 90, 156, 0.1) 0%, transparent 50%, rgba(0, 90, 156, 0.1) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.research-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: contrast(1.02) saturate(1.05);
+  transition: transform 0.5s ease;
+}
+
+.research-carousel-slide:hover .research-image {
+  transform: scale(1.02);
+}
+
+.research-caption {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 28px 30px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  font-family: 'Arial', 'Helvetica Neue', sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.research-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(0, 90, 156, 0.6);
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.research-carousel-wrapper:hover .research-carousel-arrow {
+  opacity: 1;
+  visibility: visible;
+}
+
+.research-carousel-arrow:hover {
+  background: rgba(0, 90, 156, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.research-carousel-prev {
+  left: 25px;
+}
+
+.research-carousel-next {
+  right: 25px;
+}
+
+.research-carousel-indicators {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 10;
+  padding: 10px 20px;
+  background: rgba(0, 90, 156, 0.6);
+  border-radius: 30px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.research-indicator-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.research-indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
+}
+
+.research-indicator-dot.active {
+  background: linear-gradient(135deg, #64b5f6, #42a5f5);
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(100, 181, 246, 0.6);
+  transform: scale(1.3);
+}
+
+.research-caption:hover {
+  background: linear-gradient(135deg, var(--ocean-blue) 0%, var(--dark-blue) 100%);
+}
+
+/* 科研板块 */
+.research{background:var(--light-blue);padding:40px 0;text-align:center;}
+.research h2{margin-bottom:25px;color:var(--dark-blue);}
+.research-cards{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  align-items:stretch;
+}
+.research-card{
+  background:#fff;
+  width:280px;
+  padding:25px;
+  border-radius:8px;
+  border-top:4px solid var(--ocean-blue);
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+}
+/* 标题允许自动换行，不做省略 */
+.research-card h3{
+  margin-bottom:10px;
+  color:var(--dark-blue);
+}
+.research-card p{
+  line-height:1.6;
+  margin-bottom:15px;
+  flex-grow:1;
+}
+/* 链接统一贴在卡片底部，全部对齐 */
+.learn-more{
+  color:var(--ocean-blue);
+  text-decoration:none;
+}
+.learn-more:hover{
+  text-decoration:underline;
+}
+
+/* 校园生活图片展播 */
+.campus-life-gallery {
+  padding: 50px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef4f8 100%);
+}
+
+.campus-life-gallery .container {
+  max-width: 1400px;
+}
+
+.campus-life-gallery h2 {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--dark-blue);
+  text-align: center;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.campus-life-gallery h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--ocean-blue), transparent);
+  border-radius: 2px;
+}
+
+.gallery-masonry {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 18px;
+  gap: 18px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 90, 156, 0.12);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 90, 156, 0.25);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: contrast(1.08) saturate(1.1);
+}
+
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 90, 156, 0.15) 0%, transparent 50%, rgba(0, 90, 156, 0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gallery-item:hover::before {
+  opacity: 1;
+}
+
+.gallery-item .gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.4), transparent);
+  color: #fff;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 3;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-overlay h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.gallery-item:nth-child(1) {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+.gallery-item:nth-child(2) {
+  grid-row: span 2;
+}
+
+.gallery-item:nth-child(3) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(4) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(5) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(6) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(7) {
+  grid-row: span 1;
+}
+
+.gallery-item:nth-child(8) {
+  grid-row: span 1;
+}
+
+@media (max-width: 1200px) {
+  .gallery-masonry {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .gallery-item:nth-child(1) {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-masonry {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 12px;
+    gap: 12px;
+  }
+  
+  .gallery-item:nth-child(1) {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  
+  .campus-life-gallery h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  
+  .gallery-overlay h3 {
+    font-size: 14px;
+  }
+}
+
+.gallery-slide {
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1a365d 0%, #0d2137 100%);
+}
+
+.gallery-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-image-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 90, 156, 0.08) 0%, transparent 50%, rgba(0, 90, 156, 0.08) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: contrast(1.05) saturate(1.08) brightness(1.02);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-slide:hover .gallery-image {
+  transform: scale(1.03);
+  filter: contrast(1.08) saturate(1.12) brightness(1.03);
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 25px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  letter-spacing: 1px;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(0, 90, 156, 0.7);
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-wrapper:hover .gallery-arrow {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gallery-arrow:hover {
+  background: rgba(0, 90, 156, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-prev {
+  left: 25px;
+}
+
+.gallery-next {
+  right: 25px;
+}
+
+.gallery-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+  padding: 8px 18px;
+  background: rgba(0, 90, 156, 0.6);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.gallery-indicator-dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.2);
+}
+
+.gallery-indicator-dot.active {
+  background: linear-gradient(135deg, #64b5f6, #42a5f5);
+  border-color: #fff;
+  box-shadow: 0 0 8px rgba(100, 181, 246, 0.5);
+  transform: scale(1.2);
+}
+
+.gallery-thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.thumb-item {
+  width: 100px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thumb-item:hover {
+  border-color: var(--ocean-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 90, 156, 0.2);
+}
+
+.thumb-item.active {
+  border-color: var(--ocean-blue);
+  box-shadow: 0 0 0 3px rgba(0, 90, 156, 0.2), 0 4px 12px rgba(0, 90, 156, 0.15);
+}
+
+.thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .campus-life-gallery h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  
+  .gallery-track {
+    height: 280px;
+  }
+  
+  .gallery-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+  
+  .gallery-prev {
+    left: 15px;
+  }
+  
+  .gallery-next {
+    right: 15px;
+  }
+  
+  .gallery-caption {
+    font-size: 16px;
+    padding: 15px;
+  }
+  
+  .thumb-item {
+    width: 70px;
+    height: 50px;
+  }
+  
+  .gallery-thumbs {
+    gap: 10px;
+  }
+}
+
+/* 校园板块 */
+.campus{background:#fff;padding:40px 0;text-align:center;}
+.campus h2{display:inline-block;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--ocean-blue);}
+.campus-list{font-size:16px;line-height:2;}
+
+/* 页脚 */
+footer{background:var(--dark-blue);color:#fff;padding:40px 0;}
+.footer-container{display:flex;gap:30px;flex-wrap:wrap;}
+.footer-col{flex:1;min-width:220px;}
+.footer-col h3{margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #ffffff50;}
+.footer-col p{line-height:1.8;color:#ffffffcc;}
+.footer-col a{color:#ffffffcc;text-decoration:none;}
+.copyright{
+  text-align:center;
+  margin-top:30px;
+  padding-top:15px;
+  border-top:1px solid #ffffff50;
+  color:#ffffff99;
+}
+/* 页脚语言切换 */
+.footer-lang {
+  margin-top: 15px;
+  text-align: center;
+}
+.footer-lang a {
+  color: #ffffffcc;
+  text-decoration: none;
+  margin: 0 8px;
+}
+.footer-lang a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<div class="logo-top">
+    <div class="container">
+        <div class="logo-wrap">
+            <img src="校徽.png" alt="School Logo" class="school-logo">
+            <div class="school-name">DALIAN OCEAN UNIVERSITY</div>
+        </div>
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="container">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Academics</a>
+        <a href="#" class="nav-link">Research</a>
+        <a href="#" class="nav-link">Campus Life</a>
+        <a href="#" class="nav-link">News & Events</a>
+        <a href="#" class="nav-link">For Partners</a>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </div>
+</div>
+
+<!-- 主轮播组件 -->
+<section class="main-carousel">
+    <div class="container">
+        <div class="carousel-wrapper">
+            <div class="carousel-container">
+                <!-- 轮播轨道 -->
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="banner1.jpg" alt="Banner 1" class="carousel-image" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="banner2.jpg" alt="Banner 2" class="carousel-image" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="banner4.jpg" alt="Banner 4" class="carousel-image" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 左右箭头按钮 -->
+            <button class="carousel-arrow carousel-prev-arrow" id="mainPrevBtn" aria-label="上一张">
+                <span class="arrow-icon">‹</span>
+            </button>
+            <button class="carousel-arrow carousel-next-arrow" id="mainNextBtn" aria-label="下一张">
+                <span class="arrow-icon">›</span>
+            </button>
+            
+            <!-- 指示器 -->
+            <div class="carousel-indicators" id="mainIndicators">
+                <button class="indicator-dot active" data-index="0" aria-label="切换到第1张"></button>
+                <button class="indicator-dot" data-index="1" aria-label="切换到第2张"></button>
+                <button class="indicator-dot" data-index="2" aria-label="切换到第3张"></button>
+            </div>
+            
+            <!-- 加载状态 -->
+            <div class="carousel-loading" id="carouselLoading">
+                <div class="loading-spinner"></div>
+                <span>加载中...</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="notice-section">
+    <div class="container">
+        <div class="notice-wrapper">
+            <div class="notice-label">
+                <span class="notice-icon">📢</span>
+                <span>NOTICE</span>
+            </div>
+            <div class="notice-content">
+                <div class="notice-text-wrapper">
+                    <div class="notice-text">
+                        <span class="notice-date">[2026-05-16]</span>
+                        <span class="notice-description">Exclusive Shuttle Service Launched for Daheishi Campus.</span>
+                    </div>
+                    <div class="notice-text">
+                        <span class="notice-date">[2026-05-18]</span>
+                        <span class="notice-description">Fire Safety Evacuation Drill Scheduled.</span>
+                    </div>
+                    <div class="notice-text">
+                        <span class="notice-date">[2026-05-25]</span>
+                        <span class="notice-description">Call for Nominations: Undergraduate Academic Affairs Contacts.</span>
+                    </div>
+                </div>
+                <a href="#" class="notice-more">Read More ›</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="carousel-section">
+    <div class="container">
+        <div class="news-wrapper">
+            <div class="news-left">
+                <h2 class="carousel-title">News</h2>
+                
+                <!-- News轮播组件 -->
+                <div class="news-carousel-section">
+                    <div class="news-carousel-wrapper">
+                        <div class="news-carousel-track" id="newsCarouselTrack">
+                            <div class="news-carousel-slide">
+                                <img src="图片1.png" alt="News Banner 1">
+                            </div>
+                            <div class="news-carousel-slide">
+                                <img src="图片2.png" alt="News Banner 2">
+                            </div>
+                            <div class="news-carousel-slide">
+                                <img src="图片3.png" alt="News Banner 3">
+                            </div>
+                            <div class="news-carousel-slide">
+                                <img src="图片5.png" alt="News Banner 5">
+                            </div>
+                        </div>
+                        
+                        <!-- 左右箭头按钮 -->
+                        <button class="news-carousel-arrow news-carousel-prev" id="newsPrevBtn" aria-label="上一张">
+                            <span class="arrow-icon">‹</span>
+                        </button>
+                        <button class="news-carousel-arrow news-carousel-next" id="newsNextBtn" aria-label="下一张">
+                            <span class="arrow-icon">›</span>
+                        </button>
+                        
+                        <!-- 指示器 -->
+                        <div class="news-carousel-indicators" id="newsIndicators">
+                            <button class="news-indicator-dot active" data-index="0" aria-label="切换到第1张"></button>
+                            <button class="news-indicator-dot" data-index="1" aria-label="切换到第2张"></button>
+                            <button class="news-indicator-dot" data-index="2" aria-label="切换到第3张"></button>
+                            <button class="news-indicator-dot" data-index="3" aria-label="切换到第4张"></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-intro">
+                    <div class="intro-text" id="introText">2025 Autumn 'New Quality Artisans' Vocational Training Program Launched</div>
+                </div>
+            </div>
+            <div class="news-right">
+                <h2 class="carousel-title">More...</h2>
+                <div class="news-list">
+                    <div class="news-item">
+                        <span class="news-date">[2026-05-25]</span>
+                        <span class="news-content">We Chat Official Account of the Ministry of Education "China-Russia Years of Education" Reports Our University's Meeting with the President of Far Eastern State Technical Fisheries University</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">[2026-05-22]</span>
+                        <span class="news-content">Environment Science and Ecology of Our University Ranks Among ESI Global Top 1%</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">[2026-05-19]</span>
+                        <span class="news-content">Ewon Benedick, Deputy Chief Minister of Sabah State, Malaysia, Leads Delegation to Visit Our University</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">[2026-03-06]</span>
+                        <span class="news-content">President Du Ming Meets with Delegation from Sabah State, Malaysia</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">[2026-02-23]</span>
+                        <span class="news-content">Research Delegation Conducts Academic Exchange in Norway and Iceland</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sports-section">
+    <div class="container">
+        <div class="sports-header">
+            <h2>Events</h2>
+        </div>
+        <div class="sports-container">
+            <div class="sports-carousel-wrapper">
+                <button class="sports-arrow sports-arrow-left" id="sportsPrevBtn" aria-label="上一张">‹</button>
+                <button class="sports-arrow sports-arrow-right" id="sportsNextBtn" aria-label="下一张">›</button>
+                <div class="sports-carousel" id="sportsCarousel">
+                <div class="sports-slide">
+                    <img src="sports-banner.jpg" alt="Sports Banner" class="sports-image">
+                    <div class="sports-overlay">
+                        <h2 class="sports-title">SPORTS IGNITE PASSION. UNITY DEFINES STRENGTH.</h2>
+                        <p class="sports-subtitle">-Weekly Scoreboard & Upcoming Fixtures-</p>
+                    </div>
+                </div>
+                <div class="sports-slide">
+                    <img src="sports-banner2.jpg" alt="Sports Banner 2" class="sports-image">
+                    <div class="sports-overlay">
+                        <h2 class="sports-title">Unceasing Strides, Forging Ahead Against the Wind</h2>
+                        <p class="sports-subtitle">-The Honor Guard's March at the 24th Dalian International Walking Festival</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="research-section">
+    <div class="container">
+        <h2>Research</h2>
+        <div class="research-carousel-wrapper" id="researchCarouselWrapper">
+            <div class="research-carousel-track" id="researchCarouselTrack">
+                <div class="research-carousel-slide">
+                    <div class="research-image-container">
+                        <img src="微信图片_20260527092749_554_7.jpg" alt="Research Image 1" class="research-image">
+                    </div>
+                    <div class="research-caption">Milestone Achieved: Environmental Science and Ecology at DLOU Enter ESI Global Top 1%.</div>
+                </div>
+                <div class="research-carousel-slide">
+                    <div class="research-image-container">
+                        <img src="微信图片_20260527092557_553_7.png" alt="Research Image 2" class="research-image">
+                    </div>
+                    <div class="research-caption">Professor Du Ming's Team Launches "Seashell Picking" LLM, Pioneering Intelligent Services in Shellfish Research.</div>
+                </div>
+            </div>
+            
+            <button class="research-carousel-arrow research-carousel-prev" id="researchPrevBtn" aria-label="上一张">
+                <span class="arrow-icon">‹</span>
+            </button>
+            <button class="research-carousel-arrow research-carousel-next" id="researchNextBtn" aria-label="下一张">
+                <span class="arrow-icon">›</span>
+            </button>
+            
+            <div class="research-carousel-indicators" id="researchIndicators">
+                <button class="research-indicator-dot active" data-index="0" aria-label="切换到第1张"></button>
+                <button class="research-indicator-dot" data-index="1" aria-label="切换到第2张"></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="numbers">
+    <div class="container">
+        <h2>DLOU by Numbers</h2>
+        <div class="data-grid">
+            <div class="data-item"><div class="num">1952</div><p>Year Founded</p></div>
+            <div class="data-item"><div class="num">16</div><p>Colleges & Schools</p></div>
+            <div class="data-item"><div class="num">20,000+</div><p>Students</p></div>
+            <div class="data-item"><div class="num">1,200+</div><p>Faculty Members</p></div>
+            <div class="data-item"><div class="num">35+</div><p>Partner Countries</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="video-section">
+    <div class="container">
+        <h2>LEARN OUR STORY</h2>
+        <div class="video-container">
+            <video controls poster="#" class="university-video">
+                <source src="../大连海洋大学三分钟宣传片英文版.m4v" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+    </div>
+</div>
+
+<section class="campus-life-gallery">
+    <div class="container">
+        <div class="gallery-masonry">
+            <div class="gallery-item">
+                <img src="31b95bed-25fb-4e20-8e9e-7d44486a0ed8e_s.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="a28d2430-8d05-4a88-acb1-354f9ddb26cf_s.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="cdb331f1454354dc026d9b57ddb2e48c.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="12d688013e5ba2572879e0baacc51093.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="11fc07fd915b937c5b82f86e956c87b8.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="dc54afd4e93e1a02761bd35456e54ca8.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="81291b9e7e4127f1f04ed01e1fca22b3.jpg" alt="Campus Life">
+            </div>
+            <div class="gallery-item">
+                <img src="微信图片_20260527105605_565_7.jpg" alt="Campus Life">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="campus">
+    <div class="container">
+        <h2>Campus & City</h2>
+        <div class="campus-list">Heishijiao Campus<br>Daheishi Campus<br>Wafangdian Campus</div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <p>Address: No.52, Heishijiao Street, Dalian 116023</p>
+                <p>Phone: +86-411-84762652 / +86-411-84763008</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <p>About Us</p><p>Academics</p><p>Research</p>
+            </div>
+            <div class="footer-col">
+                <h3>Follow Us</h3>
+                <p>Official Website</p><p>English Version</p>
+            </div>
+        </div>
+        <div class="footer-lang">
+            <a href="#">中文</a> | <a href="#">EN</a>
+        </div>
+        <div class="copyright">
+            Copyright © Dalian Ocean University. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<script>
+// News轮播组件 JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const newsCarouselTrack = document.getElementById('newsCarouselTrack');
+    const newsCarouselWrapper = newsCarouselTrack.parentElement;
+    const newsPrevBtn = document.getElementById('newsPrevBtn');
+    const newsNextBtn = document.getElementById('newsNextBtn');
+    const newsIndicators = document.querySelectorAll('.news-indicator-dot');
+    const introText = document.getElementById('introText');
+    
+    let newsCurrentIndex = 0;
+    let newsAutoPlayInterval;
+    const newsTotalSlides = 4; // 图片1, 图片2, 图片3, 图片5
+    
+    const captions = [
+        "2025 Autumn 'New Quality Artisans' Vocational Training Program Launched",
+        "President Du Ming Leads Delegation aboard Russian Tall Ship <em>Pallada</em>",
+        "Deputy Chief Minister of Sabah Leads Delegation to Visit Our University",
+        "Deputy Party Secretary Li Zhijun Leads Delegation to Russia"
+    ];
+    
+    // 切换到指定索引
+    function goToNewsSlide(index) {
+        if (index < 0) {
+            index = newsTotalSlides - 1;
+        } else if (index >= newsTotalSlides) {
+            index = 0;
+        }
+        
+        newsCurrentIndex = index;
+        
+        const slideWidth = newsCarouselWrapper.offsetWidth;
+        newsCarouselTrack.style.transform = `translateX(-${newsCurrentIndex * slideWidth}px)`;
+        
+        // 更新指示器
+        newsIndicators.forEach((dot, i) => {
+            dot.classList.toggle('active', i === newsCurrentIndex);
+        });
+        
+        // 更新介绍语
+        introText.innerHTML = captions[newsCurrentIndex];
+    }
+    
+    // 下一张
+    function nextNewsSlide() {
+        goToNewsSlide(newsCurrentIndex + 1);
+    }
+    
+    // 上一张
+    function prevNewsSlide() {
+        goToNewsSlide(newsCurrentIndex - 1);
+    }
+    
+    // 开始自动轮播
+    function startNewsAutoPlay() {
+        newsAutoPlayInterval = setInterval(nextNewsSlide, 6000);
+    }
+    
+    // 停止自动轮播
+    function stopNewsAutoPlay() {
+        if (newsAutoPlayInterval) {
+            clearInterval(newsAutoPlayInterval);
+        }
+    }
+    
+    // 重置自动轮播定时器
+    function resetNewsAutoPlay() {
+        stopNewsAutoPlay();
+        setTimeout(startNewsAutoPlay, 7000);
+    }
+    
+    // 按钮点击事件
+    newsPrevBtn.addEventListener('click', function() {
+        prevNewsSlide();
+        resetNewsAutoPlay();
+    });
+    
+    newsNextBtn.addEventListener('click', function() {
+        nextNewsSlide();
+        resetNewsAutoPlay();
+    });
+    
+    // 指示器点击事件
+    newsIndicators.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            goToNewsSlide(index);
+            resetNewsAutoPlay();
+        });
+    });
+    
+    // 鼠标进入暂停自动轮播
+    newsCarouselWrapper.addEventListener('mouseenter', function() {
+        stopNewsAutoPlay();
+    });
+    
+    // 鼠标离开恢复自动轮播
+    newsCarouselWrapper.addEventListener('mouseleave', function() {
+        resetNewsAutoPlay();
+    });
+    
+    // 窗口大小改变时重新计算
+    window.addEventListener('resize', function() {
+        const slideWidth = newsCarouselWrapper.offsetWidth;
+        newsCarouselTrack.style.transform = `translateX(-${newsCurrentIndex * slideWidth}px)`;
+    });
+    
+    // 开始自动轮播
+    startNewsAutoPlay();
+});
+</script>
+
+<script>
+// 体育事件轮播组件 JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const sportsCarousel = document.getElementById('sportsCarousel');
+    const sportsCarouselWrapper = sportsCarousel.parentElement;
+    const sportsPrevBtn = document.getElementById('sportsPrevBtn');
+    const sportsNextBtn = document.getElementById('sportsNextBtn');
+    const sportsSlides = document.querySelectorAll('.sports-slide');
+    
+    let sportsCurrentIndex = 0;
+    let sportsAutoPlayInterval;
+    const sportsTotalSlides = sportsSlides.length;
+    
+    // 切换到指定索引
+    function goToSportsSlide(index) {
+        if (index < 0) {
+            index = sportsTotalSlides - 1;
+        } else if (index >= sportsTotalSlides) {
+            index = 0;
+        }
+        
+        sportsCurrentIndex = index;
+        
+        const slideWidth = sportsCarouselWrapper.offsetWidth;
+        sportsCarousel.style.transform = `translateX(-${sportsCurrentIndex * slideWidth}px)`;
+    }
+    
+    // 下一张
+    function nextSportsSlide() {
+        goToSportsSlide(sportsCurrentIndex + 1);
+    }
+    
+    // 上一张
+    function prevSportsSlide() {
+        goToSportsSlide(sportsCurrentIndex - 1);
+    }
+    
+    // 开始自动轮播
+    function startSportsAutoPlay() {
+        sportsAutoPlayInterval = setInterval(nextSportsSlide, 5000);
+    }
+    
+    // 停止自动轮播
+    function stopSportsAutoPlay() {
+        if (sportsAutoPlayInterval) {
+            clearInterval(sportsAutoPlayInterval);
+        }
+    }
+    
+    // 按钮点击事件
+    sportsPrevBtn.addEventListener('click', function() {
+        prevSportsSlide();
+        stopSportsAutoPlay();
+        setTimeout(startSportsAutoPlay, 5000);
+    });
+    
+    sportsNextBtn.addEventListener('click', function() {
+        nextSportsSlide();
+        stopSportsAutoPlay();
+        setTimeout(startSportsAutoPlay, 5000);
+    });
+    
+    // 窗口大小改变时重新计算
+    window.addEventListener('resize', function() {
+        const slideWidth = sportsCarouselWrapper.offsetWidth;
+        sportsCarousel.style.transform = `translateX(-${sportsCurrentIndex * slideWidth}px)`;
+    });
+    
+    // 开始自动轮播
+    startSportsAutoPlay();
+});
+</script>
+
+<script>
+// 主轮播组件 JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取DOM元素
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    const carouselContainer = document.querySelector('.carousel-container');
+    const carouselTrack = document.querySelector('.carousel-track');
+    const prevBtn = document.getElementById('mainPrevBtn');
+    const nextBtn = document.getElementById('mainNextBtn');
+    const indicators = document.querySelectorAll('.indicator-dot');
+    const loadingOverlay = document.getElementById('carouselLoading');
+    const images = document.querySelectorAll('.carousel-image');
+    
+    // 轮播状态
+    let currentIndex = 0;
+    let autoPlayInterval;
+    let isAutoPlaying = true;
+    let imageLoadCount = 0;
+    const totalImages = images.length;
+    
+    // 初始化加载状态
+    loadingOverlay.style.display = 'flex';
+    
+    // 图片预加载和错误处理
+    images.forEach((img, index) => {
+        // 创建预加载图像
+        const preloadImg = new Image();
+        
+        // 加载成功
+        preloadImg.onload = function() {
+            img.src = this.src;
+            imageLoadCount++;
+            
+            // 所有图片加载完成
+            if (imageLoadCount === totalImages) {
+                loadingOverlay.style.display = 'none';
+                startAutoPlay();
+            }
+        };
+        
+        // 加载失败 - 显示占位图
+        preloadImg.onerror = function() {
+            img.src = '';
+            img.classList.add('error');
+            imageLoadCount++;
+            
+            if (imageLoadCount === totalImages) {
+                loadingOverlay.style.display = 'none';
+                startAutoPlay();
+            }
+        };
+        
+        // 开始预加载
+        preloadImg.src = img.getAttribute('src');
+    });
+    
+    // 切换到指定索引
+    function goToSlide(index) {
+        // 边界处理
+        if (index < 0) {
+            index = totalImages - 1;
+        } else if (index >= totalImages) {
+            index = 0;
+        }
+        
+        currentIndex = index;
+        
+        // 更新轨道位置
+        const slideWidth = carouselWrapper.offsetWidth;
+        carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        
+        // 更新指示器
+        indicators.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+    
+    // 下一张
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+    
+    // 上一张
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+    
+    // 开始自动轮播
+    function startAutoPlay() {
+        if (isAutoPlaying) {
+            stopAutoPlay();
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        }
+    }
+    
+    // 停止自动轮播
+    function stopAutoPlay() {
+        if (autoPlayInterval) {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+    }
+    
+    // 重置自动轮播定时器
+    function resetAutoPlay() {
+        stopAutoPlay();
+        setTimeout(startAutoPlay, 5000);
+    }
+    
+    // 点击事件监听
+    prevBtn.addEventListener('click', function() {
+        prevSlide();
+        resetAutoPlay();
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        nextSlide();
+        resetAutoPlay();
+    });
+    
+    // 指示器点击事件
+    indicators.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            goToSlide(index);
+            resetAutoPlay();
+        });
+    });
+    
+    // 鼠标进入暂停自动轮播
+    carouselWrapper.addEventListener('mouseenter', function() {
+        stopAutoPlay();
+    });
+    
+    // 鼠标离开恢复自动轮播（5秒后）
+    carouselWrapper.addEventListener('mouseleave', function() {
+        resetAutoPlay();
+    });
+    
+    // 窗口大小改变时重新计算
+    window.addEventListener('resize', function() {
+        // 更新当前位置
+        const slideWidth = carouselWrapper.offsetWidth;
+        carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    });
+});
+</script>
+
+<script>
+// Research轮播组件 JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const researchCarouselTrack = document.getElementById('researchCarouselTrack');
+    const researchCarouselWrapper = document.getElementById('researchCarouselWrapper');
+    const researchPrevBtn = document.getElementById('researchPrevBtn');
+    const researchNextBtn = document.getElementById('researchNextBtn');
+    const researchIndicators = document.querySelectorAll('.research-indicator-dot');
+    
+    let researchCurrentIndex = 0;
+    let researchAutoPlayInterval;
+    const researchTotalSlides = 2;
+    
+    function goToResearchSlide(index) {
+        if (index < 0) {
+            index = researchTotalSlides - 1;
+        } else if (index >= researchTotalSlides) {
+            index = 0;
+        }
+        
+        researchCurrentIndex = index;
+        
+        const slideWidth = researchCarouselWrapper.offsetWidth;
+        researchCarouselTrack.style.transform = `translateX(-${researchCurrentIndex * slideWidth}px)`;
+        
+        researchIndicators.forEach((dot, i) => {
+            dot.classList.toggle('active', i === researchCurrentIndex);
+        });
+    }
+    
+    function nextResearchSlide() {
+        goToResearchSlide(researchCurrentIndex + 1);
+    }
+    
+    function prevResearchSlide() {
+        goToResearchSlide(researchCurrentIndex - 1);
+    }
+    
+    function startResearchAutoPlay() {
+        researchAutoPlayInterval = setInterval(nextResearchSlide, 7000);
+    }
+    
+    function stopResearchAutoPlay() {
+        if (researchAutoPlayInterval) {
+            clearInterval(researchAutoPlayInterval);
+        }
+    }
+    
+    function resetResearchAutoPlay() {
+        stopResearchAutoPlay();
+        setTimeout(startResearchAutoPlay, 5000);
+    }
+    
+    researchPrevBtn.addEventListener('click', function() {
+        prevResearchSlide();
+        resetResearchAutoPlay();
+    });
+    
+    researchNextBtn.addEventListener('click', function() {
+        nextResearchSlide();
+        resetResearchAutoPlay();
+    });
+    
+    researchIndicators.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            goToResearchSlide(index);
+            resetResearchAutoPlay();
+        });
+    });
+    
+    researchCarouselWrapper.addEventListener('mouseenter', function() {
+        stopResearchAutoPlay();
+    });
+    
+    researchCarouselWrapper.addEventListener('mouseleave', function() {
+        resetResearchAutoPlay();
+    });
+    
+    window.addEventListener('resize', function() {
+        const slideWidth = researchCarouselWrapper.offsetWidth;
+        researchCarouselTrack.style.transform = `translateX(-${researchCurrentIndex * slideWidth}px)`;
+    });
+    
+    startResearchAutoPlay();
+});
+</script>
+
+<script>
+// Campus Life Gallery JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const campusGalleryTrack = document.getElementById('campusGalleryTrack');
+    const campusGalleryWrapper = document.getElementById('campusGalleryWrapper');
+    const campusPrevBtn = document.getElementById('campusPrevBtn');
+    const campusNextBtn = document.getElementById('campusNextBtn');
+    const campusIndicators = document.querySelectorAll('.gallery-indicator-dot');
+    const thumbItems = document.querySelectorAll('.thumb-item');
+    
+    let campusCurrentIndex = 0;
+    let campusAutoPlayInterval;
+    const campusTotalSlides = 6;
+    
+    function goToCampusSlide(index) {
+        if (index < 0) {
+            index = campusTotalSlides - 1;
+        } else if (index >= campusTotalSlides) {
+            index = 0;
+        }
+        
+        campusCurrentIndex = index;
+        
+        const slideWidth = campusGalleryWrapper.offsetWidth;
+        campusGalleryTrack.style.transform = `translateX(-${campusCurrentIndex * slideWidth}px)`;
+        
+        campusIndicators.forEach((dot, i) => {
+            dot.classList.toggle('active', i === campusCurrentIndex);
+        });
+        
+        thumbItems.forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === campusCurrentIndex);
+        });
+    }
+    
+    function nextCampusSlide() {
+        goToCampusSlide(campusCurrentIndex + 1);
+    }
+    
+    function prevCampusSlide() {
+        goToCampusSlide(campusCurrentIndex - 1);
+    }
+    
+    function startCampusAutoPlay() {
+        campusAutoPlayInterval = setInterval(nextCampusSlide, 5000);
+    }
+    
+    function stopCampusAutoPlay() {
+        if (campusAutoPlayInterval) {
+            clearInterval(campusAutoPlayInterval);
+        }
+    }
+    
+    function resetCampusAutoPlay() {
+        stopCampusAutoPlay();
+        setTimeout(startCampusAutoPlay, 5000);
+    }
+    
+    campusPrevBtn.addEventListener('click', function() {
+        prevCampusSlide();
+        resetCampusAutoPlay();
+    });
+    
+    campusNextBtn.addEventListener('click', function() {
+        nextCampusSlide();
+        resetCampusAutoPlay();
+    });
+    
+    campusIndicators.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            goToCampusSlide(index);
+            resetCampusAutoPlay();
+        });
+    });
+    
+    thumbItems.forEach((thumb, index) => {
+        thumb.addEventListener('click', function() {
+            goToCampusSlide(index);
+            resetCampusAutoPlay();
+        });
+    });
+    
+    campusGalleryWrapper.addEventListener('mouseenter', function() {
+        stopCampusAutoPlay();
+    });
+    
+    campusGalleryWrapper.addEventListener('mouseleave', function() {
+        resetCampusAutoPlay();
+    });
+    
+    window.addEventListener('resize', function() {
+        const slideWidth = campusGalleryWrapper.offsetWidth;
+        campusGalleryTrack.style.transform = `translateX(-${campusCurrentIndex * slideWidth}px)`;
+    });
+    
+    startCampusAutoPlay();
+});
+</script>
+
+</body>
+</html>
