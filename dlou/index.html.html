@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dalian Ocean University</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+:root {
+  --ocean-blue: #005A9C;
+  --light-blue: #E6F0FA;
+  --dark-blue: #003D66;
+  --white: #fff;
+  --gray: #f5f5f5;
+}
+body {
+  background: var(--gray);
+  color: #333;
+}
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* 顶部校名区域：单行居中、不换行 */
+.logo-top {
+  background: var(--ocean-blue);
+  color: var(--white);
+  padding: 20px 0;
+  text-align: center;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.school-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+.school-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* 导航栏 */
+.navbar {
+  background: var(--ocean-blue);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 0;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 22px;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* 缩小版搜索栏 */
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+.search-bar input {
+  padding: 4px 8px;
+  width: 130px;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  border-radius: 4px 0 0 4px;
+}
+.search-bar button {
+  padding: 4px 10px;
+  border: none;
+  background: var(--dark-blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: 0 4px 4px 0;
+}
+.search-bar button:hover {
+  background: #002b4d;
+}
+
+/* 轮播 */
+.hero {
+  width: 100%;
+  height: 380px;
+  position: relative;
+  overflow: hidden;
+}
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0;
+  animation: slide 16s infinite;
+}
+.hero img:nth-child(1){animation-delay:0s}
+.hero img:nth-child(2){animation-delay:4s}
+.hero img:nth-child(3){animation-delay:8s}
+.hero img:nth-child(4){animation-delay:12s}
+@keyframes slide{
+  0%{opacity:0}
+  10%{opacity:1}
+  30%{opacity:1}
+  40%{opacity:0}
+  100%{opacity:0}
+}
+.hero-text{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  text-align:center;
+  text-shadow:0 2px 5px #00000080;
+}
+
+/* 快捷入口 */
+.quick-links{background:#fff;padding:40px 0;text-align:center;}
+.quick-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
+.quick-col{width:220px;}
+.quick-col h3{color:var(--ocean-blue);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--light-blue);}
+.quick-items{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+
+/* 数据板块 */
+.numbers{background:var(--light-blue);padding:40px 0;text-align:center;}
+.data-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+.data-item{background:#fff;padding:16px 8px;border-radius:8px;}
+.num{font-size:20px;font-weight:bold;color:var(--ocean-blue);margin-bottom:4px;}
+
+/* 新闻区域 */
+.news-section{background:#fff;padding:40px 0;}
+.news-container{display:flex;gap:30px;flex-wrap:wrap;}
+.news-left,.news-right{flex:1;min-width:280px;}
+.news-header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--ocean-blue);padding-bottom:8px;margin-bottom:15px;}
+.news-header h2{color:var(--dark-blue);}
+.more-news{color:var(--ocean-blue);text-decoration:none;}
+.news-list{list-style:none;}
+.news-list li{padding:10px 0;border-bottom:1px solid #eee;position:relative;padding-left:15px;}
+.news-list li::before{content:"•";color:var(--ocean-blue);position:absolute;left:0;}
+.news-categories{list-style:none;}
+.news-categories li{padding:10px 0;border-bottom:1px solid #eee;}
+.news-categories a{color:#333;text-decoration:none;}
+
+/* 科研板块 */
+.research{background:var(--light-blue);padding:40px 0;text-align:center;}
+.research h2{margin-bottom:25px;color:var(--dark-blue);}
+.research-cards{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  align-items:stretch;
+}
+.research-card{
+  background:#fff;
+  width:280px;
+  padding:25px;
+  border-radius:8px;
+  border-top:4px solid var(--ocean-blue);
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+}
+/* 标题允许自动换行，不做省略 */
+.research-card h3{
+  margin-bottom:10px;
+  color:var(--dark-blue);
+}
+.research-card p{
+  line-height:1.6;
+  margin-bottom:15px;
+  flex-grow:1;
+}
+/* 链接统一贴在卡片底部，全部对齐 */
+.learn-more{
+  color:var(--ocean-blue);
+  text-decoration:none;
+}
+.learn-more:hover{
+  text-decoration:underline;
+}
+
+/* 校园板块 */
+.campus{background:#fff;padding:40px 0;text-align:center;}
+.campus h2{display:inline-block;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--ocean-blue);}
+.campus-list{font-size:16px;line-height:2;}
+
+/* 页脚 */
+footer{background:var(--dark-blue);color:#fff;padding:40px 0;}
+.footer-container{display:flex;gap:30px;flex-wrap:wrap;}
+.footer-col{flex:1;min-width:220px;}
+.footer-col h3{margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #ffffff50;}
+.footer-col p{line-height:1.8;color:#ffffffcc;}
+.footer-col a{color:#ffffffcc;text-decoration:none;}
+.copyright{
+  text-align:center;
+  margin-top:30px;
+  padding-top:15px;
+  border-top:1px solid #ffffff50;
+  color:#ffffff99;
+}
+/* 页脚语言切换 */
+.footer-lang {
+  margin-top: 15px;
+  text-align: center;
+}
+.footer-lang a {
+  color: #ffffffcc;
+  text-decoration: none;
+  margin: 0 8px;
+}
+.footer-lang a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<div class="logo-top">
+    <div class="container">
+        <div class="logo-wrap">
+            <img src="校徽.png" class="school-logo" alt="Logo">
+            <div class="school-name">DALIAN OCEAN UNIVERSITY</div>
+        </div>
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="container">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Academics</a>
+        <a href="#" class="nav-link">Research</a>
+        <a href="#" class="nav-link">Campus Life</a>
+        <a href="#" class="nav-link">News & Events</a>
+        <a href="#" class="nav-link">For Partners</a>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="hero-text">
+        <h1>Welcome to Dalian Ocean University</h1>
+        <p>Our University for Friendly Exchange</p>
+    </div>
+    <img src="图片1.png" alt="Banner1">
+    <img src="图片2.png" alt="Banner2">
+    <img src="图片3.png" alt="Banner3">
+    <img src="图片4.png" alt="Banner4">
+</div>
+
+<div class="quick-links">
+    <div class="container">
+        <div class="quick-container">
+            <div class="quick-col">
+                <h3>For International Partners</h3>
+                <div class="quick-items">
+                    <a>Partnerships</a><a>MOUs</a><a>collaboration opportunities</a>
+                </div>
+            </div>
+            <div class="quick-col">
+                <h3>For Visiting Scholars</h3>
+                <div class="quick-items">
+                    <a>Research stays</a><a>lab visits</a><a>academic exchanges</a>
+                </div>
+            </div>
+            <div class="quick-col">
+                <h3>Media & Press</h3>
+                <div class="quick-items">
+                    <a>News</a><a>media kits</a><a>press contacts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="numbers">
+    <div class="container">
+        <h2>DLOU by Numbers</h2>
+        <div class="data-grid">
+            <div class="data-item"><div class="num">1952</div><p>Year Founded</p></div>
+            <div class="data-item"><div class="num">16</div><p>Colleges & Schools</p></div>
+            <div class="data-item"><div class="num">20,000+</div><p>Students</p></div>
+            <div class="data-item"><div class="num">1,200+</div><p>Faculty Members</p></div>
+            <div class="data-item"><div class="num">1.36M m²</div><p>Sea Area</p></div>
+            <div class="data-item"><div class="num">35+</div><p>Partner Countries</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="news-section">
+    <div class="container">
+        <div class="news-container">
+            <div class="news-left">
+                <div class="news-header">
+                    <h2>News & Events</h2>
+                    <a href="#" class="more-news">More News</a>
+                </div>
+                <ul class="news-list">
+                    <li>May 22, 2026 – DLOU Approved as Liaoning Province's First Batch of Data Element Innovation Laboratory</li>
+                    <li>May 22, 2026 – DLOU Holds 2026 Graduates Employment Meeting</li>
+                    <li>May 21, 2026 – "Heroes Never Fall" Red Ideological and Political Course "Ice and Snow" Held</li>
+                    <li>May 15, 2026 – DLOU's Environment/Ecology Enters ESI Global Top 1%</li>
+                </ul>
+            </div>
+            <div class="news-right">
+                <div class="news-header"><h2>Categories</h2></div>
+                <ul class="news-categories">
+                    <li><a href="#">Notice</a></li><li><a href="#">Research</a></li><li><a href="#">Media Coverage</a></li><li><a href="#">Events</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="research">
+    <div class="container">
+        <h2>Research Highlights</h2>
+        <div class="research-cards">
+            <div class="research-card">
+                <h3>Key Lab of Mariculture</h3>
+                <p>Ministry of Agriculture and Rural Affairs, leading aquaculture research</p>
+                <a href="#" class="learn-more">[ Learn More ]</a>
+            </div>
+            <div class="research-card">
+                <h3>Marine Observation Network</h3>
+                <p>Real-time data buoys and coastal ecosystem monitoring</p>
+                <a href="#" class="learn-more">[ Learn More ]</a>
+            </div>
+            <div class="research-card">
+                <h3>Aquaculture Engineering Center</h3>
+                <p>Innovation in sustainable fish farming and hatchery technologies</p>
+                <a href="#" class="learn-more">[ Learn More ]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="campus">
+    <div class="container">
+        <h2>Campus & City</h2>
+        <div class="campus-list">Heishijiao Campus<br>Daheishi Campus<br>Wafangdian Campus</div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <p>Address: No.52, Heishijiao Street, Dalian 116023</p>
+                <p>Phone: +86-411-84762652 / +86-411-84763008</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <p>About Us</p><p>Academics</p><p>Research</p>
+            </div>
+            <div class="footer-col">
+                <h3>Follow Us</h3>
+                <p>Official Website</p><p>English Version</p>
+            </div>
+        </div>
+        <div class="footer-lang">
+            <a href="#">中文</a> | <a href="#">EN</a>
+        </div>
+        <div class="copyright">
+            Copyright © Dalian Ocean University. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
